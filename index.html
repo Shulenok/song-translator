@@ -171,30 +171,9 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
 .ts-clock:hover{opacity:1;color:var(--ac)}
 .ts-del{flex-shrink:0;width:16px;height:16px;cursor:pointer;color:var(--t3);display:flex;align-items:center;justify-content:center;opacity:.4;transition:opacity .12s,color .12s;margin-left:2px}
 .ts-del:hover{opacity:1;color:var(--re)}
-.ts-ai{flex-shrink:0;width:18px;height:18px;cursor:pointer;color:var(--ac);display:flex;align-items:center;justify-content:center;opacity:.5;transition:opacity .12s,color .12s}
-.ts-ai:hover{opacity:1;color:var(--ac)}
 
-/* AI Translation Popup */
-.ai-popup{position:fixed;z-index:1000;background:var(--w);border:1px solid var(--b);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.18);width:420px;max-width:94vw;max-height:70vh;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .15s,transform .15s}
-.ai-popup.show{opacity:1;pointer-events:all;transform:none}
-.ai-popup-hd{padding:10px 14px;background:var(--sf);border-bottom:1px solid var(--b);border-radius:10px 10px 0 0;display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ai-popup-hd .ai-title{font-size:12px;font-weight:700;color:var(--t);flex:1}
-.ai-popup-hd .ai-src{font-size:11px;color:var(--t3);font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
-.ai-popup-body{overflow-y:auto;flex:1;padding:4px 0}
-.ai-popup-row{display:flex;align-items:center;gap:5px;padding:5px 10px;border-bottom:1px solid #f0f0ea;font-size:13px;line-height:1.35;color:var(--t)}
-.ai-popup-row:last-child{border-bottom:none}
-.ai-popup-row:hover{background:var(--bg)}
-.ai-popup-num{font-size:10px;color:var(--t3);font-weight:700;min-width:16px;margin-top:2px}
-.ai-popup-txt{flex:1;min-width:0;word-break:break-word}
-.ai-popup-actions{display:flex;gap:2px;flex-shrink:0;margin-top:1px}
-.ai-popup-btn{width:22px;height:22px;border:none;background:none;cursor:pointer;color:var(--t3);display:flex;align-items:center;justify-content:center;border-radius:4px;padding:0;opacity:.5;transition:all .1s}
-.ai-popup-btn:hover{opacity:1;background:var(--bg)}
-.ai-popup-btn.copy:hover{color:var(--ac)}
-.ai-popup-btn.del:hover{color:var(--re)}
-.ai-popup-ft{padding:8px 12px;border-top:1px solid var(--b);display:flex;gap:6px;flex-shrink:0;background:var(--sf);border-radius:0 0 10px 10px}
-.ai-popup-ft button{height:28px;font-size:12px}
-.ai-popup-msg{font-size:12px;color:var(--t3);padding:14px;text-align:center}
-.ai-popup-sec{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--t3);padding:8px 12px 4px;background:var(--sf);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:1}
+
+
 .ts-burger-wrap{position:relative;flex-shrink:0;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
 .ts-burger{cursor:pointer;color:var(--t3);display:flex;align-items:center;opacity:.55;padding:0}
 .ts-burger:hover{opacity:1;color:var(--t2)}
@@ -206,11 +185,7 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
 .addbtn{width:100%;border:1px dashed var(--b2);border-radius:var(--r2);background:transparent;color:var(--t3);height:28px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .12s;outline:none}
 .addbtn:hover{border-color:var(--ac);color:var(--ac);background:var(--acs)}
 
-/* AI STRIP */
-.ai-strip{border-top:1px solid var(--b);display:flex;flex-direction:column;max-height:32%;flex-shrink:0}
-.ai-hd{padding:5px 12px;background:var(--sf);border-bottom:1px solid var(--b);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--t3);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.ai-msg{font-size:12px;color:var(--t3);padding:8px 12px;flex-shrink:0}
-.ai-scr{overflow-y:auto;flex:1}
+
 .variant{border-bottom:1px solid var(--b);padding:7px 12px}
 .vt{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
 .vnum{font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
@@ -348,23 +323,7 @@ body.dark .hmenu-dd{background:var(--w);border-color:var(--b)}
     </button>
   </div>
   <div class="sp-body">
-    <div class="sp-sec">
-      <h4>Translation Language</h4>
-      <div class="sp-row">
-        <label class="sp-lbl">Target language</label>
-        <select class="sp-sel" id="sp-lang">
-          <option>Lithuanian</option><option>Russian</option><option>Spanish</option>
-          <option>French</option><option>German</option><option>Italian</option>
-          <option>Portuguese</option><option>Polish</option><option>Ukrainian</option>
-          <option>Japanese</option><option>Chinese</option><option>Korean</option>
-          <option>Arabic</option><option>Hebrew</option><option>Custom…</option>
-        </select>
-      </div>
-      <div class="sp-row" id="sp-cust-row" style="display:none">
-        <label class="sp-lbl">Custom language</label>
-        <input type="text" class="sp-inp" id="sp-cust" placeholder="e.g. Latvian"/>
-      </div>
-    </div>
+
     <div class="sp-sec">
       <h4>Display</h4>
       <div class="sp-row">
@@ -379,14 +338,7 @@ body.dark .hmenu-dd{background:var(--w);border-color:var(--b)}
         </select>
       </div>
     </div>
-    <div class="sp-sec">
-      <h4>API Key</h4>
-      <div class="sp-row">
-        <label class="sp-lbl">Gemini (Google)</label>
-        <input type="password" class="sp-inp" id="sp-gem" placeholder="AIza…"/>
-        <div class="sp-hint">Free tier at <a href="https://aistudio.google.com" target="_blank" style="color:var(--ac)">aistudio.google.com</a></div>
-      </div>
-    </div>
+
     <button class="btn-ok" style="width:100%;height:36px;font-size:14px" onclick="saveSP()">Save Settings</button>
 
     <div style="margin-top:28px;padding-top:18px;border-top:1px solid var(--b)">
@@ -394,7 +346,7 @@ body.dark .hmenu-dd{background:var(--w);border-color:var(--b)}
       <div style="font-size:12px;color:var(--t2);line-height:1.7">
         <strong style="font-size:13px;color:var(--t)">Song Translator</strong> &mdash; version 1.0<br>
         A tool for working with subtitles and song lyric translation.<br>
-        Supports YouTube, AI translation (Gemini) and automatic structure detection.<br><br>
+        Supports YouTube and automatic structure detection.<br><br>
         Contact the developer: <a id="dev-email" href="#" style="color:var(--ac);text-decoration:none;font-weight:500"></a><br><br>
         <span style="color:var(--t3);font-size:11px">&copy; 2026 Song Translator. All rights reserved.</span>
       </div>
@@ -564,7 +516,7 @@ const S={
   colNames:['Main Text'],
   sel:0,active:-1,player:null,vid:null,tick:null,_pid:null,title:'',step:5,_saveHandle:null
 };
-const CFG={lang:'Lithuanian',geminiKey:'',fontSize:14,dark:false};
+const CFG={fontSize:14,dark:false};
 const $=id=>document.getElementById(id);
 const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const fmt=v=>v==null?'—':`${Math.floor(v/60)}:${(v%60).toFixed(1).padStart(4,'0')}`;
@@ -621,22 +573,15 @@ function applyFontSize(){
 
 /* ── SETTINGS ── */
 window.openSP=()=>{
-  $('sp-lang').value=['Lithuanian','Russian','Spanish','French','German','Italian','Portuguese','Polish','Ukrainian','Japanese','Chinese','Korean','Arabic','Hebrew'].includes(CFG.lang)?CFG.lang:'Custom…';
-  $('sp-cust').value=CFG.lang;
-  $('sp-gem').value=CFG.geminiKey;
   $('sp-fontsize').value=String(CFG.fontSize||14);
-  updCust();$('sp-ov').classList.add('show');$('sp-panel').classList.add('show');
+  $('sp-ov').classList.add('show');$('sp-panel').classList.add('show');
 };
 window.closeSP=()=>{$('sp-ov').classList.remove('show');$('sp-panel').classList.remove('show');};
 window.saveSP=()=>{
-  CFG.lang=$('sp-lang').value==='Custom…'?($('sp-cust').value.trim()||'Lithuanian'):$('sp-lang').value;
-  CFG.geminiKey=$('sp-gem').value.trim();
   CFG.fontSize=parseInt($('sp-fontsize').value)||14;
   applyFontSize();
   saveCFG();closeSP();showToast('✓ Settings saved');
 };
-function updCust(){$('sp-cust-row').style.display=$('sp-lang').value==='Custom…'?'':'none';}
-$('sp-lang').addEventListener('change',updCust);
 
 /* ── DROPDOWN ── */
 function toggleDD(id){const m=$(id+'-menu');const o=m.classList.contains('open');closeDD();if(!o)m.classList.add('open');}
@@ -870,7 +815,7 @@ const IC={
   imp:'<svg class="ic" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>',
   txt:'<svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
   str:'<svg class="ic" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
-  ai: '<svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+
   ts: '<svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
   x:  '<svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
   chR:'<svg class="ic" style="width:10px;height:10px;margin-left:auto" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>',
@@ -1168,14 +1113,6 @@ function renderTable(){
         burger.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>';
         const bdd=document.createElement('div');bdd.className='ts-dd';
 
-        const aiItem0=document.createElement('div');aiItem0.className='dd-item';
-        aiItem0.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg> AI Translate';
-        aiItem0.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');showAIPopup(ri,0,burger);});
-
-        const aiTabsItem0=document.createElement('div');aiTabsItem0.className='dd-item';
-        aiTabsItem0.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Ask 3 AIs';
-        aiTabsItem0.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');openAITabs(ri,0);});
-
         // Set / Remove timestamp in dropdown
         if(l.ts==null){
           const setTsItem=document.createElement('div');setTsItem.className='dd-item';
@@ -1189,9 +1126,6 @@ function renderTable(){
           bdd.appendChild(rmTsItem);
         }
         const sepTs=document.createElement('div');sepTs.className='dd-sep';bdd.appendChild(sepTs);
-
-        bdd.appendChild(aiItem0);bdd.appendChild(aiTabsItem0);
-        const sep0=document.createElement('div');sep0.className='dd-sep';bdd.appendChild(sep0);
 
         const addBelowItem=document.createElement('div');addBelowItem.className='dd-item';
         addBelowItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add row below';
@@ -1228,21 +1162,6 @@ function renderTable(){
         burger2.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>';
         const bdd2=document.createElement('div');bdd2.className='ts-dd';
 
-        const aiItem=document.createElement('div');aiItem.className='dd-item';
-        aiItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg> AI Translate';
-        aiItem.addEventListener('click',e=>{
-          e.stopPropagation();bdd2.classList.remove('open');
-          if(!S.lines[ri]?.cols[ci]?.trim()){showToast('No text in this cell');return;}
-          showAIPopup(ri,ci,burger2);
-        });
-
-        const aiTabsItem=document.createElement('div');aiTabsItem.className='dd-item';
-        aiTabsItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Ask 3 AIs';
-        aiTabsItem.addEventListener('click',e=>{
-          e.stopPropagation();bdd2.classList.remove('open');
-          openAITabs(ri,ci);
-        });
-
         const addItem2=document.createElement('div');addItem2.className='dd-item';
         addItem2.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add row below';
         addItem2.addEventListener('click',e=>{e.stopPropagation();bdd2.classList.remove('open');S.lines.splice(ri+1,0,{ts:null,section:'',cols:Array(S.colNames.length).fill('')});render();snap();});
@@ -1262,8 +1181,6 @@ function renderTable(){
           render();snap();
         });
 
-        bdd2.appendChild(aiItem);bdd2.appendChild(aiTabsItem);
-        const sep2=document.createElement('div');sep2.className='dd-sep';bdd2.appendChild(sep2);
         bdd2.appendChild(addItem2);bdd2.appendChild(delItem2);
         burger2.addEventListener('click',e=>{
           e.stopPropagation();
@@ -1476,7 +1393,7 @@ document.addEventListener('blur',e=>{
 document.addEventListener('click',e=>{
   if(!e.target.closest('.ts-burger-wrap'))document.querySelectorAll('.ts-dd.open').forEach(d=>d.classList.remove('open'));
   if(!e.target.closest('.ph-overflow-wrap')&&!e.target.closest('.ph-overflow-menu'))document.querySelectorAll('.ph-overflow-menu.open').forEach(m=>m.classList.remove('open'));
-  if(!e.target.closest('.ai-popup')&&!e.target.closest('.ts-ai')&&!e.target.closest('.ph-btn'))removeAIPopup();
+  if(!e.target.closest('.ph-btn')){}
 });
 
 function selLine(i){
@@ -1570,212 +1487,12 @@ window.getSubs=async()=>{
     S.lines=ls.map((l,i)=>({ts:l.ts,section:'',cols:[l.text,...S.colNames.slice(1).map((_,ci)=>S.lines[i]?.cols[ci+1]||'')]}));
     autoSection(S.lines);S.sel=0;S.active=-1;render();snap();
     setStatus(`✓ Loaded ${ls.length} lines (${d.lang})`,true);
-    // Auto-detect structure if Gemini key is configured
-    if(CFG.geminiKey)setTimeout(analyzeStructure,300);
   }catch(e){
     setStatus('✗ '+e.message,false);
   }
   // restore button
   const sb2=$('sub-btn');
   if(sb2){sb2.innerHTML='<svg class="ic" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Get Subtitles';sb2.className='ph-btn ph-btn-hideable';sb2.disabled=false;}
-};
-
-/* ── STRUCTURE DETECTION ── */
-window.analyzeStructure=async()=>{
-  const filled=S.lines.filter(l=>l.cols[0]?.trim());
-  if(filled.length<3){setStatus('Load subtitles or add text first.',false);return;}
-  if(!CFG.geminiKey){setStatus('Gemini API key required — open Settings.',false);return;}
-  setStatus('Detecting structure…',true);
-  try{
-    const numbered=S.lines.map((l,i)=>l.cols[0]?.trim()?`${i}|||${l.cols[0]}`:'').filter(Boolean).join('\n');
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${CFG.geminiKey}`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:
-        `You are a song structure analyst. Analyze these song lyrics and identify sections like: Verse 1, Verse 2, Pre-Chorus, Chorus, Bridge, Outro, Intro.\n`+
-        `Each line is: INDEX|||LYRIC_TEXT where INDEX is the line position (0-based).\n\n`+
-        `RULES:\n`+
-        `- Mark the FIRST line of each new section\n`+
-        `- Always label line 0 as at minimum "Verse 1"\n`+
-        `- Return ONLY a raw JSON array, no markdown, no code blocks\n`+
-        `- Format: [{"lineIndex":0,"section":"Verse 1"},{"lineIndex":4,"section":"Chorus"}]\n\n`+
-        `Lyrics:\n${numbered}`
-      }]}]})
-    });
-    const data=await r.json();
-    if(data.error)throw new Error(data.error.message);
-    let raw=(data.candidates?.[0]?.content?.parts?.[0]?.text||'').trim();
-    raw=raw.replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();
-    let sections;
-    try{sections=JSON.parse(raw);}
-    catch{
-      const m=raw.match(/\[[\s\S]*\]/);
-      if(!m)throw new Error('Could not parse response: '+raw.slice(0,120));
-      sections=JSON.parse(m[0]);
-    }
-    if(!sections||sections.length===0)throw new Error('No sections returned by AI');
-    S.lines.forEach(l=>l.section='');
-    sections.forEach(({lineIndex,section})=>{
-      if(lineIndex>=0&&lineIndex<S.lines.length)S.lines[lineIndex].section=section;
-    });
-    render();snap();
-    setStatus(`✓ ${sections.length} sections detected`,true);
-  }catch(e){setStatus('✗ '+e.message,false);}
-};
-
-/* ── AI TRANSLATE POPUP ── */
-function removeAIPopup(){const p=document.getElementById('ai-popup');if(p)p.remove();}
-
-function showAIPopup(ri,ci,anchor){
-  removeAIPopup();
-  const srcLine=S.lines[ri]?.cols[ci>0?ci:0]||'';
-  if(!srcLine.trim()){showToast('No source text in this row');return;}
-  if(!CFG.geminiKey){showToast('Gemini API key not set — open Settings.');return;}
-
-  const popup=document.createElement('div');popup.className='ai-popup';popup.id='ai-popup';
-  popup.innerHTML=`
-    <div class="ai-popup-hd">
-      <span class="ai-title">✦ AI Translation</span>
-      <span class="ai-src" title="${esc(srcLine)}">${esc(srcLine)}</span>
-      <button class="ghost" style="height:20px;padding:0 4px;min-width:0" onclick="removeAIPopup()">
-        <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div id="ai-popup-body" class="ai-popup-body"><div class="ai-popup-msg"><span class="spin dk"></span> Translating…</div></div>
-    <div class="ai-popup-ft">
-      <button onclick="aiPopupRefresh()" tt="Generate new variants" style="gap:4px">
-        <svg class="ic" style="width:12px;height:12px" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.5"/></svg>
-        Refresh
-      </button>
-      <span style="flex:1"></span>
-      <button onclick="removeAIPopup()">Close</button>
-    </div>`;
-  document.body.appendChild(popup);
-
-  // Position near anchor
-  const rect=anchor.getBoundingClientRect();
-  const pw=420,maxPh=Math.min(window.innerHeight*.8,600);
-  let top=rect.bottom+6,left=rect.left-pw+20;
-  if(left<8)left=8;
-  if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
-  if(top+maxPh>window.innerHeight-8)top=rect.top-maxPh-6;
-  popup.style.top=top+'px';popup.style.left=left+'px';
-  requestAnimationFrame(()=>popup.classList.add('show'));
-
-  // Store context for refresh
-  window._aiPopupCtx={ri,ci,srcLine};
-  fetchAIVariants(srcLine,ci);
-}
-
-async function fetchAIVariants(srcLine,ci){
-  const body=document.getElementById('ai-popup-body');
-  if(!body)return;
-  body.innerHTML='<div class="ai-popup-msg"><span class="spin dk"></span> Generating variants…</div>';
-  const lang=CFG.lang||'Lithuanian';
-  const colName=S.colNames[ci]||'';
-  const fromLang=ci===0?'English':(colName||'the source language');
-  const prompt=`You are a professional song translator. Translate this lyric line from ${fromLang} to ${lang}.
-
-Provide 10 singable translation variants that match the rhythm and syllable count of the original.
-
-Return ONLY a raw JSON array of 10 strings, no markdown, no code blocks.
-
-Line: ${srcLine}`;
-  try{
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${CFG.geminiKey}`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-    const d=await r.json();
-    if(d.error)throw new Error(d.error.message);
-    let t=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim().replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();
-    let arr;
-    try{arr=JSON.parse(t);}catch{
-      const m=t.match(/\[[\s\S]*\]/);
-      if(m)try{arr=JSON.parse(m[0]);}catch{}
-      if(!arr)arr=t.split('\n').map(x=>x.replace(/^[\d.)"'\-\s]+/,'')).filter(Boolean).slice(0,10);
-    }
-    window._aiPopupVars=arr;
-    renderAIVariants2(arr,ci);
-  }catch(e){
-    if(body)body.innerHTML=`<div class="ai-popup-msg" style="color:var(--re)">Error: ${esc(e.message)}</div>`;
-  }
-}
-
-function renderAIVariants2(arr,ci){
-  const body=document.getElementById('ai-popup-body');
-  if(!body)return;
-  body.innerHTML='';
-  arr.forEach((v,i)=>{
-    const row=document.createElement('div');row.className='ai-popup-row';
-    row.innerHTML=`
-      <span class="ai-popup-num">${i+1}</span>
-      <span class="ai-popup-txt">${esc(String(v))}</span>
-      <span class="ai-popup-actions">
-        <span class="ai-popup-btn copy" tt="Copy" onclick="event.stopPropagation();navigator.clipboard.writeText(${JSON.stringify(String(v)).replace(/'/g,'\\\'')});showToast('✓ Copied')">
-          <svg style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </span>
-        <span class="ai-popup-btn apply" tt="Apply" onclick="event.stopPropagation();applyAIVar(${i},${ci})">
-          <svg style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </span>
-        <span class="ai-popup-btn del" tt="Remove" onclick="event.stopPropagation();this.closest('.ai-popup-row').remove()">
-          <svg style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </span>
-      </span>`;
-    body.appendChild(row);
-  });
-}
-
-window.applyAIVar=(i,ci)=>{
-  if(!window._aiPopupVars||!window._aiPopupCtx)return;
-  const ri=window._aiPopupCtx.ri;
-  S.lines[ri].cols[ci]=String(window._aiPopupVars[i]);
-  render();snap();
-  removeAIPopup();
-  showToast('✓ Applied');
-};
-
-window.aiPopupRefresh=()=>{
-  if(!window._aiPopupCtx)return;
-  fetchAIVariants(window._aiPopupCtx.srcLine,window._aiPopupCtx.ci);
-};
-
-/* ── OPEN AI IN 3 TABS ── */
-window.openAITabs=(ri,ci)=>{
-  const srcText=S.lines[ri]?.cols[ci>0?ci:0]||'';
-  if(!srcText.trim()){showToast('No text in this cell');return;}
-  const lang=CFG.lang||'Lithuanian';
-  const colName=S.colNames[ci]||'';
-  const fromLang=ci===0?'English':(colName||'the source language');
-  const songTitle=S.title||'';
-
-  const prompt=`I'm translating a worship song${songTitle?' called "'+songTitle+'"':''} from ${fromLang} to ${lang}.
-
-Translate this ONE lyric line:
-"${srcText}"
-
-Give me TWO groups of translations:
-
-GROUP 1 — SINGABLE (rhythmic):
-10 variants that MATCH the rhythm, syllable count, and stress pattern of the original line. These must be singable to the same melody.
-
-GROUP 2 — RHYMING (poetic):
-10 variants with beautiful ${lang} rhyming endings. Focus on poetic quality and rhyme over exact rhythm.
-
-Rules:
-- Keep the spiritual/worship meaning
-- Use natural ${lang}, not word-for-word translation
-- Number each variant 1-10
-- Label each group clearly`;
-
-  const encoded=encodeURIComponent(prompt);
-
-  // Gemini
-  window.open('https://gemini.google.com/app?q='+encoded,'_blank');
-  // ChatGPT
-  window.open('https://chatgpt.com/?q='+encoded,'_blank');
-  // Claude
-  window.open('https://claude.ai/new?q='+encoded,'_blank');
-
-  showToast('✓ Opened 3 AI tabs — copy the best variant back');
 };
 
 /* ── COLUMNS ── */
