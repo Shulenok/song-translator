@@ -1863,9 +1863,14 @@ window.openProject=async e=>{
 };
 window.saveTXT=ci=>{
   let txt='',lastSec='';
-  S.lines.filter(l=>l.cols[ci]).forEach(l=>{
-    if(l.section&&l.section!==lastSec){txt+=`\n[${l.section}]\n`;lastSec=l.section;}
-    txt+=(l.ts!=null?`[${fmt(l.ts)}] `:''  )+(l.cols[ci]||'')+'\n';
+  S.lines.forEach(l=>{
+    if(l.section&&l.section!==lastSec){
+      if(txt)txt+='\n';
+      txt+=l.section.toUpperCase()+'\n';
+      lastSec=l.section;
+    }
+    const text=l.cols[ci]||'';
+    if(text.trim()) txt+=' '+text+'\n';
   });
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([txt.trim()],{type:'text/plain'}));
@@ -1880,9 +1885,13 @@ window.saveAllTexts=()=>{
     out+=name.toUpperCase()+'\n'+('─'.repeat(name.length))+'\n\n';
     let lastSec='';
     S.lines.forEach(l=>{
-      if(l.section&&l.section!==lastSec){out+='\n['+l.section+']\n';lastSec=l.section;}
+      if(l.section&&l.section!==lastSec){
+        if(lastSec)out+='\n';
+        out+=l.section.toUpperCase()+'\n';
+        lastSec=l.section;
+      }
       const text=l.cols[ci]||'';
-      if(text.trim())out+=text+'\n';
+      if(text.trim())out+=' '+text+'\n';
     });
   });
   const a=document.createElement('a');
