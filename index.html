@@ -47,7 +47,7 @@ header{height:50px;display:flex;align-items:center;gap:5px;padding:0 14px;backgr
 .logo-name{font-family:"Lora","Georgia",serif;font-size:16px;font-weight:600;color:var(--t)}
 .hdiv{width:1px;height:16px;background:var(--b);flex-shrink:0;margin:0 3px}
 .hgap{flex:1}
-.vid-title{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:500;color:var(--t2);max-width:28%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.vid-title{font-size:13px;font-weight:500;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;flex-shrink:1;min-width:0}
 
 /* BUTTONS — no black outline on hover, just background change */
 button{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;font-size:13px;font-weight:500;border:1px solid var(--b);border-radius:var(--r2);padding:0 11px;height:30px;min-width:0;background:var(--w);cursor:pointer;color:var(--t2);transition:background .1s,color .1s;white-space:nowrap;flex-shrink:0;outline:none;-webkit-tap-highlight-color:transparent}
@@ -222,6 +222,15 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .5s linear infinite;flex-shrink:0}
 .spin.dk{border-color:var(--b2);border-top-color:var(--ac)}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse-glow{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.04)}
+}
+@keyframes pulse-btn{
+  0%,100%{box-shadow:0 0 0 0 rgba(146,43,33,.5);transform:scale(1)}
+  50%{box-shadow:0 0 0 8px rgba(146,43,33,.18);transform:scale(1.04)}
+}
+.anim-pulse{animation:pulse-btn 1.8s ease-in-out infinite}
 
 /* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .18s}
@@ -259,6 +268,27 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
 .sp-inp:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
 .sp-sel{font:inherit;font-size:13px;height:34px;width:100%;border:1px solid var(--b);border-radius:var(--r2);padding:0 10px;background:var(--w);color:var(--t);cursor:pointer;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a80' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
 .sp-hint{font-size:11px;color:var(--t3);margin-top:4px}
+
+/* RESPONSIVE HEADER */
+.hmenu-btn{display:none;height:30px;width:30px;padding:0;border:1px solid var(--b);border-radius:var(--r2);background:var(--w);cursor:pointer;align-items:center;justify-content:center;flex-shrink:0}
+.hmenu-btn:hover{background:var(--bg)}
+.hmenu-btn svg{width:16px;height:16px;stroke:var(--t2);fill:none;stroke-width:2;stroke-linecap:round}
+.hgroup{display:contents}
+.hmenu-dd{display:none;position:absolute;top:calc(100% + 2px);left:8px;z-index:800;background:var(--w);border:1px solid var(--b);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:180px;padding:4px 0}
+.hmenu-dd.open{display:block}
+.hmenu-dd .dd-item{display:flex;align-items:center;gap:9px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;white-space:nowrap}
+.hmenu-dd .dd-item:hover{background:var(--bg);color:var(--t)}
+body.dark .hmenu-dd{background:var(--w);border-color:var(--b)}
+
+@media(max-width:900px){
+  .hmenu-btn{display:inline-flex}
+  .hgroup{display:none}
+  .vid-title{max-width:20%;position:static;transform:none;margin:0 4px}
+}
+@media(max-width:640px){
+  .vid-title{max-width:100px}
+  .logo-name{display:none}
+}
 </style>
 </head>
 <body>
@@ -385,6 +415,29 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
   <div class="hdiv"></div>
 
   <input type="file" id="open-file" accept="application/json" onchange="openProject(event)" style="display:none"/>
+
+  <!-- Hamburger for small screens -->
+  <button class="hmenu-btn" id="hmenu-btn" onclick="document.getElementById('hmenu-dd').classList.toggle('open')">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="hmenu-dd" id="hmenu-dd">
+    <div class="dd-item" onclick="newProject();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg> New</div>
+    <div class="dd-item" onclick="saveProject();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save</div>
+    <div class="dd-item" onclick="$('open-file').click();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Open</div>
+    <div class="dd-item" onclick="saveAllTexts();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Export</div>
+    <div class="dd-sep"></div>
+    <div class="dd-item" onclick="addCol();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Text Column</div>
+    <div class="dd-sep"></div>
+    <div class="dd-item" onclick="undo();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg> Undo</div>
+    <div class="dd-item" onclick="redo();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.5"/></svg> Redo</div>
+    <div class="dd-sep"></div>
+    <div class="dd-item" onclick="toggleTheme();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg> Theme</div>
+    <div class="dd-item" onclick="openSP();this.parentElement.classList.remove('open')"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div>
+  </div>
+
+  <!-- Normal header buttons (hidden on small screens) -->
+  <div class="hgroup">
+  <div class="hdiv"></div>
   <div style="display:inline-flex;border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;height:30px;flex-shrink:0">
     <button onclick="newProject()" tt="Create new project" style="border:none;border-radius:0;height:100%">
       <svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
@@ -405,12 +458,14 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
     <svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
     Export
   </button>
+  </div>
 
   <div class="vid-title" id="vid-title"></div>
   <div class="hgap"></div>
 
+  <div class="hgroup">
   <!-- Add Text Column — right side, before undo/redo -->
-  <button onclick="addCol()" tt="Add a new translation column">
+  <button id="add-col-btn" onclick="addCol()" tt="Add a new translation column">
     <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     Add Text Column
   </button>
@@ -429,6 +484,7 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
     <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Settings
   </button>
+  </div>
 </header>
 
 <div class="main" id="main">
@@ -447,7 +503,7 @@ input[type=url]:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acs2)}
         <div style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div>
         <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px">
           <div style="color:rgba(255,255,255,.6);font-size:13px;font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.1em">Get started</div>
-          <button onclick="$('yt-url').focus();$('welcome-screen').style.display='none'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(146,43,33,.9);border:1px solid rgba(146,43,33,.7);color:#fff;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px)">
+          <button onclick="$('yt-url').focus();$('welcome-screen').style.display='none'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(146,43,33,.9);border:1px solid rgba(146,43,33,.7);color:#fff;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px);animation:pulse-glow 1.8s ease-in-out infinite">
             <svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/></svg>
             Load YouTube Video
           </button>
@@ -585,7 +641,7 @@ $('sp-lang').addEventListener('change',updCust);
 /* ── DROPDOWN ── */
 function toggleDD(id){const m=$(id+'-menu');const o=m.classList.contains('open');closeDD();if(!o)m.classList.add('open');}
 function closeDD(){document.querySelectorAll('.dd-menu.open').forEach(m=>m.classList.remove('open'));document.querySelectorAll('.ph-overflow-menu.open').forEach(m=>m.classList.remove('open'));}
-document.addEventListener('click',e=>{if(!e.target.closest('.dd-wrap')&&!e.target.closest('.ph-overflow-wrap'))closeDD();});
+document.addEventListener('click',e=>{if(!e.target.closest('.dd-wrap')&&!e.target.closest('.ph-overflow-wrap'))closeDD();if(!e.target.closest('#hmenu-btn')&&!e.target.closest('#hmenu-dd')){const hm=$('hmenu-dd');if(hm)hm.classList.remove('open');}});
 
 /* ── STEP ── */
 window.setStep=s=>{
@@ -900,10 +956,11 @@ function renderHeads(){
     d.appendChild(lbl);
 
     if(ci===0){
+      const hasText=S.lines.some(l=>l.cols.some(c=>c&&c.trim()));
       // Define buttons with metadata for overflow
       const btnDefs=[
-        {id:'sub-btn',cls:'',html:IC.sub+' Get Subtitles',fn:getSubs,tip:'Load subtitles from YouTube',key:'subs'},
         {cls:'',html:IC.imp+' Import',fn:()=>showImp(0),tip:'Import text (one line per row)',key:'imp'},
+        {id:'sub-btn',cls:'',html:IC.sub+' Get Subtitles',fn:getSubs,tip:'Load subtitles from YouTube',key:'subs'},
       ];
       const btns=[];
       btnDefs.forEach(def=>{
@@ -911,6 +968,8 @@ function renderHeads(){
         if(def.id)b.id=def.id;
         b.dataset.key=def.key;
         b.classList.add('ph-btn-hideable');
+        // Animate Import when video loaded but no text
+        if(def.key==='imp'&&S.vid&&!hasText)b.classList.add('anim-pulse');
         d.appendChild(b);
         btns.push({el:b,...def});
       });
@@ -918,6 +977,8 @@ function renderHeads(){
       const saveTxtBtn=phBtn('',IC_SAVE+' Save',()=>saveTXT(0),'Save column as .txt file');
       saveTxtBtn.dataset.key='save';
       saveTxtBtn.classList.add('ph-btn-hideable');
+      const col0HasText=S.lines.some(l=>l.cols[0]&&l.cols[0].trim());
+      if(!col0HasText)saveTxtBtn.disabled=true;
       d.appendChild(saveTxtBtn);
       btns.push({el:saveTxtBtn,key:'save',html:IC_SAVE+' Save',fn:()=>saveTXT(0),tip:'Save column as .txt file'});
       // Overflow button (hidden by default)
@@ -949,6 +1010,8 @@ function renderHeads(){
       // Save TXT — same style as other buttons
       const saveTxtBtn=phBtn('',IC_SAVE+' Save',()=>saveTXT(ci),'Save column as .txt file');
       saveTxtBtn.dataset.key='save';saveTxtBtn.classList.add('ph-btn-hideable');
+      const colHasText=S.lines.some(l=>l.cols[ci]&&l.cols[ci].trim());
+      if(!colHasText)saveTxtBtn.disabled=true;
       d.appendChild(saveTxtBtn);
       // gap + Remove (smaller X, aligned with burger icons)
       const gap=document.createElement('span');gap.className='ph-gap';d.appendChild(gap);
@@ -1081,12 +1144,15 @@ function renderTable(){
       tsDiv.className='ts-cell'+(ci===0&&l.ts!=null?' set':'');
 
       if(ci===0){
-        const clk=document.createElement('span');
-        clk.className='ts-clock';
-        clk.setAttribute('tt',l.ts!=null?'Click to remove timestamp':'Click to set timestamp');
-        clk.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-        clk.addEventListener('click',e=>{e.stopPropagation();const t=S.player?.getCurrentTime?.()??0;l.ts=l.ts==null?t:null;snap();render();});
-        tsDiv.appendChild(clk);
+        // Clock icon — only show when NO timestamp
+        if(l.ts==null){
+          const clk=document.createElement('span');
+          clk.className='ts-clock';
+          clk.setAttribute('tt','Click to set timestamp');
+          clk.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+          clk.addEventListener('click',e=>{e.stopPropagation();const t=S.player?.getCurrentTime?.()??0;l.ts=t;snap();render();});
+          tsDiv.appendChild(clk);
+        }
 
         if(l.ts!=null){
           const tv=document.createElement('span');tv.className='ts-val';tv.textContent=fmt(l.ts);
@@ -1110,6 +1176,23 @@ function renderTable(){
         aiTabsItem0.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Ask 3 AIs';
         aiTabsItem0.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');openAITabs(ri,0);});
 
+        // Set / Remove timestamp in dropdown
+        if(l.ts==null){
+          const setTsItem=document.createElement('div');setTsItem.className='dd-item';
+          setTsItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Set timestamp';
+          setTsItem.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');const t=S.player?.getCurrentTime?.()??0;l.ts=t;snap();render();});
+          bdd.appendChild(setTsItem);
+        } else {
+          const rmTsItem=document.createElement('div');rmTsItem.className='dd-item red';
+          rmTsItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/></svg> Remove timestamp';
+          rmTsItem.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');l.ts=null;snap();render();});
+          bdd.appendChild(rmTsItem);
+        }
+        const sepTs=document.createElement('div');sepTs.className='dd-sep';bdd.appendChild(sepTs);
+
+        bdd.appendChild(aiItem0);bdd.appendChild(aiTabsItem0);
+        const sep0=document.createElement('div');sep0.className='dd-sep';bdd.appendChild(sep0);
+
         const addBelowItem=document.createElement('div');addBelowItem.className='dd-item';
         addBelowItem.innerHTML='<svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add row below';
         addBelowItem.addEventListener('click',e=>{e.stopPropagation();bdd.classList.remove('open');S.lines.splice(ri+1,0,{ts:null,section:'',cols:Array(S.colNames.length).fill('')});render();snap();});
@@ -1123,8 +1206,6 @@ function renderTable(){
           render();snap();
         });
 
-        bdd.appendChild(aiItem0);bdd.appendChild(aiTabsItem0);
-        const sep0=document.createElement('div');sep0.className='dd-sep';bdd.appendChild(sep0);
         bdd.appendChild(addBelowItem);bdd.appendChild(delItem);
         burger.addEventListener('click',e=>{
           e.stopPropagation();
@@ -1228,7 +1309,16 @@ function trimEmptyTail(){
   }
 }
 
-function render(){trimEmptyTail();renderHeads();renderTable();}
+function render(){
+  trimEmptyTail();renderHeads();renderTable();
+  // Animate Add Text Column when there's text but only 1 column
+  const acb=$('add-col-btn');
+  if(acb){
+    const hasText=S.lines.some(l=>l.cols.some(c=>c&&c.trim()));
+    if(hasText&&S.colNames.length===1)acb.classList.add('anim-pulse');
+    else acb.classList.remove('anim-pulse');
+  }
+}
 
 function autoH(){
   document.querySelectorAll('.txt').forEach(t=>{t.style.height='auto';t.style.height=t.scrollHeight+'px';});
@@ -1447,6 +1537,7 @@ window.loadYT=()=>{
   S.vid=id;mkPlayer(id);fetchTitle(id);
   const lb=$('load-btn');
   if(lb){lb.classList.remove('pri');}
+  render();
 };
 
 window.togglePlay=()=>{const p=S.player;if(!p)return;p.getPlayerState?.()===1?p.pauseVideo?.():p.playVideo?.();setTimeout(setPP,80);};
@@ -1722,7 +1813,7 @@ window.newProject=async()=>{
     // Re-create welcome screen
     const wDiv=document.createElement('div');wDiv.id='welcome-screen';
     wDiv.style.cssText="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:10;background:url('https://images.unsplash.com/photo-1576919463908-de1f877114bb?q=80&w=774&auto=format&fit=crop') center/cover no-repeat";
-    wDiv.innerHTML='<div style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px"><div style="color:rgba(255,255,255,.6);font-size:13px;font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.1em">Get started</div><button onclick="$(\'yt-url\').focus();$(\'welcome-screen\').style.display=\'none\'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(146,43,33,.9);border:1px solid rgba(146,43,33,.7);color:#fff;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px)"><svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/></svg>Load YouTube Video</button><button onclick="$(\'open-file\').click();$(\'welcome-screen\').style.display=\'none\'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#e8e8e0;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px)"><svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Open Project</button></div>';
+    wDiv.innerHTML='<div style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div><div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px"><div style="color:rgba(255,255,255,.6);font-size:13px;font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.1em">Get started</div><button onclick="$(\'yt-url\').focus();$(\'welcome-screen\').style.display=\'none\'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(146,43,33,.9);border:1px solid rgba(146,43,33,.7);color:#fff;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px);animation:pulse-glow 1.8s ease-in-out infinite"><svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/></svg>Load YouTube Video</button><button onclick="$(\'open-file\').click();$(\'welcome-screen\').style.display=\'none\'" style="width:240px;height:50px;font-size:15px;font-weight:600;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#e8e8e0;border-radius:10px;gap:8px;cursor:pointer;backdrop-filter:blur(4px)"><svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Open Project</button></div>';
     $('vframe').appendChild(wDiv);
   } else ws.style.display='';
   render();snap();
